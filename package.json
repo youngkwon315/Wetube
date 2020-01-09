@@ -4,8 +4,12 @@
   "description": "Cloning Youtube with Vanilla and NodeJS",
   "author": "Youngbin Kwon",
   "dependencies": {
+    "@babel/polyfill": "^7.7.0",
+    "autoprefixer": "^9.7.3",
+    "babel-loader": "^8.0.6",
     "body-parser": "^1.19.0",
     "cookie-parser": "^1.4.4",
+    "css-loader": "^3.4.1",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "extract-text-webpack-plugin": "^4.0.0-beta.0",
@@ -14,13 +18,16 @@
     "morgan": "^1.9.1",
     "multer": "^1.4.2",
     "node": "^13.3.0",
+    "node-sass": "^4.13.0",
+    "postcss-loader": "^3.0.0",
     "pug": "^2.0.4",
+    "sass-loader": "^8.0.0",
     "webpack": "^4.41.5",
     "webpack-cli": "^3.3.10"
   },
   "scripts": {
     "dev:server": "nodemon --exec babel-node init.js --delay 2",
-    "dev:assets": "WEBPACK_ENV=development webpack",
+    "dev:assets": "WEBPACK_ENV=development webpack -w",
     "build:assets": "WEBPACK_ENV=production webpack"
   },
   "devDependencies": {

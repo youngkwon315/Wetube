@@ -1,13 +1,22 @@
 const path = require("path");
+const autoprefixer = require("autoprefixer");
 const ExtractCSS = require("extract-text-webpack-plugin");
 
 const MODE = process.env.WEBPACK_ENV;
 
 module.exports = {
-  entry: "./assets/js/main.js",
+  entry: ["@babel/polyfill", "./assets/js/main.js"],
   mode: MODE,
   module: {
     rules: [
+      {
+        test: /\.(js)%/,
+        use: [
+          {
+            loader: "babel-loader"
+          }
+        ]
+      },
       {
         test: /\.(scss)$/,
         use: ExtractCSS.extract([
@@ -15,7 +24,12 @@ module.exports = {
             loader: "css-loader"
           },
           {
-            loader: "post-css"
+            loader: "postcss-loader",
+            options: {
+              plugins() {
+                return [autoprefixer({ browsers: "cover 99.5%" })];
+              }
+            }
           },
           {
             loader: "sass-loader"
@@ -25,9 +39,10 @@ module.exports = {
     ]
   },
   output: {
-    filename: "main.js",
-    path: path.resolve(__dirname, "dist")
-  }
+    path: path.resolve(__dirname, "static"),
+    filename: "main.js"
+  },
+  plugins: [new ExtractCSS("styles.css")]
 };
 
 /*
