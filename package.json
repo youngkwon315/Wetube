@@ -19,8 +19,9 @@
     "mongoose": "^5.8.3",
     "morgan": "^1.9.1",
     "multer": "^1.4.2",
+    "ngrok": "^3.2.7",
     "node": "^13.3.0",
-    "node-sass": "^4.13.0",
+    "node-sass": "^4.13.1",
     "passport": "^0.4.1",
     "passport-facebook": "^3.0.0",
     "passport-github": "^1.1.0",
@@ -35,7 +36,8 @@
   "scripts": {
     "dev:server": "nodemon --exec babel-node init.js --delay 2 --ignore 'scss'",
     "dev:assets": "WEBPACK_ENV=development webpack -w",
-    "build:assets": "WEBPACK_ENV=production webpack"
+    "build:assets": "WEBPACK_ENV=production webpack",
+    "tunnel": "ngrok http 4000"
   },
   "devDependencies": {
     "@babel/cli": "^7.7.5",
