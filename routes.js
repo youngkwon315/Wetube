@@ -79,7 +79,7 @@ const routes = {
   facebook: FB,
   facebookCallback: FB_CALLBACK,
   api: API,
-  registerVIEW: REGISTER_VIEW
+  registerView: REGISTER_VIEW
 };
 
 export default routes;
