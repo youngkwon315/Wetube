@@ -5,6 +5,7 @@
   "author": "Youngbin Kwon",
   "dependencies": {
     "@babel/polyfill": "^7.7.0",
+    "@babel/runtime": "^7.8.4",
     "autoprefixer": "^9.7.3",
     "aws-sdk": "^2.614.0",
     "axios": "^0.19.2",
@@ -17,6 +18,7 @@
     "express": "^4.17.1",
     "express-session": "^1.17.0",
     "extract-text-webpack-plugin": "^4.0.0-beta.0",
+    "get-blob-duration": "^1.1.0",
     "helmet": "^3.21.2",
     "mongoose": "^5.8.3",
     "morgan": "^1.9.1",
