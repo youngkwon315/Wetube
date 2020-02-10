@@ -105,4 +105,5 @@ dist
 package-lock.json
 uploads
 static
-build
+buildnode_modules
+node_modules
