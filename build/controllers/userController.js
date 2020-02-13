@@ -92,8 +92,8 @@ function () {
 exports.postJoin = postJoin;
 
 var getLogin = function getLogin(req, res) {
-  return res.render("Login", {
-    pageTitle: "Login"
+  return res.render("login", {
+    pageTitle: "Log In"
   });
 };
 
@@ -101,12 +101,17 @@ exports.getLogin = getLogin;
 
 var postLogin = _passport["default"].authenticate("local", {
   failureRedirect: _routes["default"].login,
-  successRedirect: _routes["default"].home
+  successRedirect: _routes["default"].home,
+  successFlash: "Welcome",
+  failureFlash: "Can't log in. Check email and/or password"
 });
 
 exports.postLogin = postLogin;
 
-var githubLogin = _passport["default"].authenticate("github");
+var githubLogin = _passport["default"].authenticate("github", {
+  successFlash: "Welcome",
+  failureFlash: "Can't log in at this time"
+});
 
 exports.githubLogin = githubLogin;
 
@@ -175,7 +180,10 @@ function () {
 
 exports.githubLoginCallback = githubLoginCallback;
 
-var facebookLogin = _passport["default"].authenticate("facebook");
+var facebookLogin = _passport["default"].authenticate("facebook", {
+  successFlash: "Welcome",
+  failureFlash: "Can't log in at this time"
+});
 
 exports.facebookLogin = facebookLogin;
 
@@ -257,6 +265,7 @@ var postGithubLogin = function postGithubLogin(req, res) {
 exports.postGithubLogin = postGithubLogin;
 
 var logout = function logout(req, res) {
+  req.flash("info", "Logged out, see you later");
   req.logout();
   res.redirect(_routes["default"].home);
 };
@@ -300,15 +309,16 @@ function () {
               pageTitle: "User Detail",
               user: user
             });
-            _context4.next = 11;
+            _context4.next = 12;
             break;
 
           case 8:
             _context4.prev = 8;
             _context4.t0 = _context4["catch"](1);
+            req.flash("error", "User not found");
             res.redirect(_routes["default"].home);
 
-          case 11:
+          case 12:
           case "end":
             return _context4.stop();
         }
@@ -353,21 +363,23 @@ function () {
             });
 
           case 4:
+            req.flash("sucess", "profile updated");
             res.redirect(_routes["default"].me);
-            _context5.next = 10;
+            _context5.next = 12;
             break;
 
-          case 7:
-            _context5.prev = 7;
+          case 8:
+            _context5.prev = 8;
             _context5.t0 = _context5["catch"](1);
+            req.flash("error", "Can't update profile");
             res.redirect(_routes["default"].editProfile);
 
-          case 10:
+          case 12:
           case "end":
             return _context5.stop();
         }
       }
-    }, _callee5, null, [[1, 7]]);
+    }, _callee5, null, [[1, 8]]);
   }));
 
   return function postEditProfile(_x14, _x15) {
@@ -401,35 +413,37 @@ function () {
             _context6.prev = 1;
 
             if (!(newPassword !== newPassword1)) {
-              _context6.next = 6;
+              _context6.next = 7;
               break;
             }
 
+            req.flash("error", "Password dont match");
             res.status(400);
             res.redirect("/users".concat(_routes["default"].changePassword));
             return _context6.abrupt("return");
 
-          case 6:
-            _context6.next = 8;
+          case 7:
+            _context6.next = 9;
             return req.user.changePassword(oldPassword, newPassword);
 
-          case 8:
+          case 9:
             res.redirect(_routes["default"].me);
-            _context6.next = 15;
+            _context6.next = 17;
             break;
 
-          case 11:
-            _context6.prev = 11;
+          case 12:
+            _context6.prev = 12;
             _context6.t0 = _context6["catch"](1);
+            req.flash("error", "Cant change password");
             res.status(400);
             res.redirect("/users".concat(_routes["default"].changePassword));
 
-          case 15:
+          case 17:
           case "end":
             return _context6.stop();
         }
       }
-    }, _callee6, null, [[1, 11]]);
+    }, _callee6, null, [[1, 12]]);
   }));
 
   return function postChangePassword(_x16, _x17) {
